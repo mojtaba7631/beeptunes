@@ -6,9 +6,15 @@
 @section('custom-css')
     <link rel="stylesheet" href="{{asset('site/assets/css/my_count_down.css')}}">
     <style>
-        .owl-carousel .owl-item img {
+        .home-course-slider .owl-item img {
             width: 400px;
-            height: 450px;
+            height: 300px;
+            border-radius: 25px !important;
+            object-fit: cover;
+        }
+
+        .home-special-course .single-home-special-course .course-img .course-content {
+            border-radius: 25px !important;
         }
 
         #my_count_down {
@@ -39,10 +45,6 @@
             color: #fff !important;
         }
 
-        .home-special-course .single-home-special-course .course-img .course-content .box-btn {
-            color: #fff !important;
-        }
-
         a {
             cursor: pointer;
         }
@@ -69,82 +71,6 @@
 @endsection
 
 @section('content')
-    <!-- Slider area -->
-    <section class="slider-area">
-        <div class="home-slider owl-carousel owl-theme">
-            <div class="single-slider single-slider-bg-1">
-                <div class="d-table">
-                    <div class="d-table-cell">
-                        <div class="container">
-                            <div class="row align-items-center">
-                                <div class="col-lg-12 text-center">
-                                    <div class="slider-tittle one">
-                                        {{--                                        <p style="font-size: 25px">--}}
-                                        {{--                                            یک آهنگ زیبا باید قلبت را به اوج ببرد، روحت را گرم کند و احساس خوبی به تو ببخشد--}}
-                                        {{--                                        </p>--}}
-
-                                    </div>
-                                    <div class="slider-btn bnt1 text-center">
-                                        <a href="#" class="box-btn">هدیه بده</a>
-                                        <a href="#" class="box-btn">مشاهده آلبوم ها</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single-slider single-slider-bg-2">
-                <div class="d-table">
-                    <div class="d-table-cell">
-                        <div class="container">
-                            <div class="row align-items-center">
-                                <div class="col-lg-12 text-center">
-                                    <div class="slider-tittle two">
-                                        {{--                                        <h1>--}}
-                                        {{--                                            ما بر رشد فرزندان <span>شما متمرکز می شویم</span>--}}
-                                        {{--                                        </h1>--}}
-                                        {{--                                        <p>--}}
-                                        {{--                                            علاوه بر این مدارس اصلی ، دانش آموزان یک کشور خاص ممکن است در مدارس قبل و بعد از ابتدایی در دوره متوسطه و متوسطه نیز در آموزش ما شرکت کنند.--}}
-                                        {{--                                        </p>--}}
-                                    </div>
-                                    <div class="slider-btn bnt2">
-                                        <a href="#" class="box-btn">هدیه بده</a>
-                                        <a href="#" class="border-btn">مشاهده آلبوم ها</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single-slider single-slider-bg-3">
-                <div class="d-table">
-                    <div class="d-table-cell">
-                        <div class="container">
-                            <div class="row align-items-center">
-                                <div class="col-lg-12 text-center">
-                                    <div class="slider-tittle two">
-                                        {{--                                        <h1>--}}
-                                        {{--                                            ما بر رشد فرزندان <span>شما متمرکز می شویم</span>--}}
-                                        {{--                                        </h1>--}}
-                                        {{--                                        <p>--}}
-                                        {{--                                            علاوه بر این مدارس اصلی ، دانش آموزان یک کشور خاص ممکن است در مدارس قبل و بعد از ابتدایی در دوره متوسطه و متوسطه نیز در آموزش ما شرکت کنند.--}}
-                                        {{--                                        </p>--}}
-                                    </div>
-                                    <div class="slider-btn bnt2">
-                                        <a href="#" class="box-btn">هدیه بده</a>
-                                        <a href="#" class="border-btn">مشاهده آلبوم ها</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Slider aera -->
 
     <!-- Service area -->
     {{--    <section class="service-area">--}}
@@ -194,10 +120,10 @@
 
 
     <!-- Special Course -->
-    <section class="home-special-course mt-4">
+    <section class="home-special-course">
         <div class="container-fluid">
             <div class="section-tittle text-center">
-                <h2>آلبوم های ما</h2>
+                <h2 class="mt-5">آلبوم های ما</h2>
                 <p>
                     ما سعی داریم تا با فراهم آوردن بهترین آلبوم های موسیقی سهمی هر چند کوچک در اعتلای فرهنگ این مرز و
                     بوم داشته باشیم.

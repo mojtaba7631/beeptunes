@@ -3,31 +3,31 @@
 
 <head>
     <title>@yield('title')</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="keywords" content="HTML5,CSS3,HTML,Template,multi-page,Edvi - Education HTML Template" >
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="keywords" content="HTML5,CSS3,HTML,Template,multi-page,Edvi - Education HTML Template">
     <meta name="description" content="Edvi - Education HTML Template">
     <meta name="author" content="Barat Hadian">
 
     <link rel="icon" href="{{asset('site/assets/images/logo1.png')}}" type="image/x-icon">
     <!-- VENDOR CSS -->
-    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/bootstrap.rtl.min.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/bootstrap.rtl.min.css')}}"/>
 
-    <link rel="stylesheet" href="{{asset('site/assets/css/meanmenu.css')}}" />
+    <link rel="stylesheet" href="{{asset('site/assets/css/meanmenu.css')}}"/>
 
-    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/fontawesome-all.min.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/flaticon.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/magnific-popup.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/animate.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/owl.carousel.min.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/style.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/responsive.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/rtl.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/fontawesome-all.min.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/flaticon.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/magnific-popup.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/animate.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/owl.carousel.min.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/style.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/responsive.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/rtl.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/dropify.min.css')}}">
 
     @yield('custom-css')
     <style>
-        .cart_css{
+        .cart_css {
             background: #9d1c1c;
             color: #ffffff;
             padding: 10px;
@@ -62,7 +62,7 @@
 <div class="navbar-area">
     <div class="mobile-nav">
         <a href="#" class="logo">
-            <img src="{{asset('site/assets/images/logo1.png')}}" alt="logo" />
+            <img src="{{asset('site/assets/images/logo1.png')}}" alt="logo"/>
         </a>
     </div>
 
@@ -70,7 +70,7 @@
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light">
                 <a class="navbar-brand" href="{{route('home')}}">
-                    <img src="{{asset('site/assets/images/logo1.png')}}" alt="logo" />
+                    <img src="{{asset('site/assets/images/logo1.png')}}" alt="logo"/>
                 </a>
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                     <ul class="navbar-nav text-right">
@@ -89,24 +89,23 @@
                             <a href="{{route('about_us')}}" class="nav-link">درباره ما</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('contact_us')}}" class="nav-link dropdown-toggle">تماس با ما </a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a href="{{route('user.login')}}" class="nav-link">ورود</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('consultant_register')}}" class="nav-link">
-                                        ثبت نام
-                                    </a>
-                                </li>
-                            </ul>
+                            <a href="{{route('contact_us')}}" class="nav-link">
+                                تماس با ما
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('user.login')}}" class="nav-link">ورود</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('consultant_register')}}" class="nav-link">
+                                ثبت نام
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('cart')}}" class="nav-link">
                                 سبد خرید
                                 <i class="fa fa-shopping-basket"></i>
                                 <span id="cart_count_span">{{$cart_count}}</span>
-                                <span class="cart_css">{{$cart_count}}</span>
                             </a>
                         </li>
                     </ul>
@@ -125,10 +124,11 @@
             <div class="col-lg-4 col-md-6">
                 <div class="footer-left">
                     <a href="index.html" class="logo">
-                        <img src="{{asset('site/assets/images/logo2.png')}}" alt="logo" />
+                        <img src="{{asset('site/assets/images/logo2.png')}}" alt="logo"/>
                     </a>
                     <p>
-                        لورم ایپسوم به سادگی ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم به مدت 40 سال استاندارد صنعت بوده است.
+                        لورم ایپسوم به سادگی ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم به مدت 40 سال استاندارد صنعت
+                        بوده است.
                     </p>
                     <ul class="footer-social">
                         <li>

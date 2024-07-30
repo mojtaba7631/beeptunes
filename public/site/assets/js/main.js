@@ -1,13 +1,13 @@
-(function($) {
+(function ($) {
     "use strict";
 
     // Preloader
-    $(window).on('load', function() {
+    $(window).on('load', function () {
         $("#loading").fadeOut(1200);
     });
 
     // Sticky Nav1
-    $(document).on("scroll", function() {
+    $(document).on("scroll", function () {
         if ($(document).scrollTop() > 150) {
             $(".main-nav").addClass("black");
         } else {
@@ -16,7 +16,7 @@
     });
 
     // Sticky Nav2
-    $(document).on("scroll", function() {
+    $(document).on("scroll", function () {
         if ($(document).scrollTop() > 0) {
             $(".mobile-nav").addClass("black");
         } else {
@@ -25,14 +25,14 @@
     });
 
     // Scroll Top
-    $(window).on("scroll", function() {
+    $(window).on("scroll", function () {
         if ($(this).scrollTop() > 300) {
             $('.scroll-top').fadeIn();
         } else {
             $('.scroll-top').fadeOut();
         }
     });
-    $('.scroll-top').click(function() {
+    $('.scroll-top').click(function () {
         $('html, body').animate({
             scrollTop: 0
         }, 800);
@@ -74,16 +74,16 @@
                 items: 1,
             },
             576: {
-                items: 2,
-            },
-            768: {
-                items: 2,
-            },
-            1000: {
                 items: 3,
             },
-            1300: {
+            768: {
                 items: 4,
+            },
+            1000: {
+                items: 4,
+            },
+            1300: {
+                items: 6,
             }
         }
     });
@@ -147,10 +147,8 @@
     $('.events-slider').owlCarousel({
         loop: true,
         margin: 20,
-        rtl: true,
         dots: false,
         autoplay: false,
-        dots: false,
         autoplayHoverPause: true,
         mouseDrag: false,
         navText: ["<i class='flaticon-next'></i>", "<i class='flaticon-left-arrow'></i>"],
@@ -175,7 +173,6 @@
         dots: false,
         rtl: true,
         autoplay: false,
-        dots: false,
         autoplayHoverPause: true,
         mouseDrag: false,
         navText: ["<i class='flaticon-next'></i>", "<i class='flaticon-left-arrow'></i>"],
@@ -201,7 +198,6 @@
         rtl: true,
         dots: false,
         autoplay: false,
-        dots: false,
         autoplayHoverPause: true,
         mouseDrag: false,
         navText: ["<i class='flaticon-next'></i>", "<i class='flaticon-left-arrow'></i>"],
@@ -231,7 +227,7 @@
     });
 
     // FAQ Accordion
-    $('.accordion').find('.accordion-title').on('click', function() {
+    $('.accordion').find('.accordion-title').on('click', function () {
         $(this).toggleClass('active');
         $(this).next().slideToggle('fast');
         $('.accordion-content').not($(this).next()).slideUp('fast');
@@ -263,7 +259,8 @@
         $("#minutes").html(minutes + "");
         $("#seconds").html(seconds + "");
     }
-    setInterval(function() {
+
+    setInterval(function () {
         makeTimer();
     }, 1000);
 
@@ -271,7 +268,7 @@
     $('.gall-list').isotope({
         itemSelector: '.item'
     });
-    $('.all-gall li').click(function() {
+    $('.all-gall li').click(function () {
         $('.all-gall li').removeClass('active');
         $(this).addClass('active');
         var selector = $(this).attr('data-filter');

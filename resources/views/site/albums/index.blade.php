@@ -5,8 +5,8 @@
 @section('custom-css')
     <style>
         .album_img{
-            width: 416px;
-            height: 225px;
+            width: 100%;
+            height: 300px;
         }
     </style>
 @endsection
@@ -39,17 +39,20 @@
         <div class="container">
             <div class="row">
                @foreach($albums_info as $albums)
-                <div class="col-lg-4 col-md-6">
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
                     <div class="single-ragular-course">
                         <div class="course-img">
                             <img src="{{asset($albums['album_image'])}}" alt="music" class="album_img"/>
                             <h2>{{$albums['album_title']}}</h2>
                         </div>
                         <div class="course-content">
-                            <p>
+                            <p class="text-truncated h-100px">
                                 {{$albums['album_meta_description']}}
                             </p>
-                            <a href="{{route('album_detail',['album_id' => $albums['id']])}}" class="border-btn">ادامه خواندن</a>
+
+                            <a href="{{route('album_detail',['album_id' => $albums['id']])}}" class="border-btn text-white">
+                                ادامه خواندن
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -57,13 +60,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#"><i class="flaticon-next"></i></a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#"><i class="flaticon-left-arrow"></i></a></li>
-                    </ul>
+                    {{$albums_info->links()}}
                 </div>
             </div>
         </div>
