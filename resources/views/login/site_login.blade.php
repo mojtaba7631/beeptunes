@@ -26,17 +26,6 @@
             left: 0;
             margin: auto;
         }
-        .address_box label {
-            color: #000;
-            font-weight: bold;
-            font-size: 12pt;
-        }
-
-        .address_box p {
-            color: #000;
-            font-size: 10pt;
-            line-height: 30px;
-        }
 
         #addressModal .modal-title {
             font-size: 12pt;
@@ -62,12 +51,6 @@
             margin-top: 6px;
             margin-bottom: 0;
         }
-
-        @media (max-width: 766px) {
-            .address_box label {
-                font-size: 10pt;
-            }
-        }
     </style>
 @endsection
 
@@ -89,9 +72,6 @@
                 timer: 3500
             });
         }
-
-
-
     </script>
 @endsection
 
@@ -109,6 +89,7 @@
                         <ul>
                             <li>
                                 <a href="{{route('home')}}"> صفحه اصلی </a>
+
                                 <i class="flaticon-left-arrow"></i>
                                 <a href="#">ورود</a>
                             </li>
@@ -124,43 +105,50 @@
     <section class="signup-area">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6">
+                <div class="col-12 col-lg-6 text-center">
                     <div class="signup-form">
-                        <h2>خوش آمدید!</h2>
-                        <form>
+
+                        <img src="{{asset('site/assets/images/logo.png')}}" alt="پژواک نیزوا">
+
+                        <h2>ورود به نیزوا</h2>
+
+                        <form action="{{route('doUserLogin')}}">
+                            @csrf
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="نام کاربری">
+                                        <input name="username" type="text" class="form-control" placeholder="نام کاربری">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="رمز عبور">
+                                        <input name="password" type="password" class="form-control" placeholder="رمز عبور">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
-                                    <a href="#" class="box-btn">
+                                    <button type="submit" class="box-btn">
                                         ورود
+                                    </button>
+                                </div>
+
+                                <div>
+                                    حساب کاربری ندارید؟
+                                    <a href="{{route('user_register')}}">
+                                        ثبت نام کنید
                                     </a>
                                 </div>
-                                <span class="already">
-                                    کاربر جدید ادوی!
-                                    <a href="{{route('consultant_register')}}">
-                                        عضویت
-                                    </a>
-                                </span>
                             </div>
 
                         </form>
                     </div>
 
                 </div>
-                <div class="col-lg-6">
+
+                <div class="col-12 col-lg-6">
                     <div class="sign-up-img">
-                        <img src="{{asset('site/assets/images/login.png')}}" alt="singup">
+                        <img src="{{asset('site/assets/images/login.png')}}" alt="ورود به حساب کاربری نیزوا">
                     </div>
                 </div>
             </div>

@@ -41,6 +41,11 @@
             font-size: 12px;
 
         }
+
+        .clear_btn {
+            background: transparent;
+            border: none;
+        }
     </style>
 </head>
 
@@ -98,15 +103,32 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="{{route('user.login')}}" class="nav-link">ورود</a>
-                        </li>
+                        @auth
+                            <li class="nav-item">
+                                <a href="{{route('home')}}" class="nav-link welcome_top">
+                                    با
+                                    {{auth()->user()->mobile}}
+                                    وارد شدید
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a href="{{route('consultant_register')}}" class="nav-link">
-                                ثبت نام
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <form method="post" action="{{route('logout')}}" class="nav-link m-0 p-0">
+                                    @csrf
+                                    <button style="margin-top: -2px" class="clear_btn text-danger d-block">خروج</button>
+                                </form>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a href="{{route('user.login')}}" class="nav-link">ورود</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{route('user_register')}}" class="nav-link">
+                                    ثبت نام
+                                </a>
+                            </li>
+                        @endauth
 
                         <li class="nav-item">
                             <a href="{{route('cart')}}" class="nav-link">

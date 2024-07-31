@@ -188,8 +188,8 @@ Route::post('messages_store', [adminMessageController::class, 'store'])->name('m
 
 //  *************  consultant register ***************
 
-Route::get('consultant_register', [siteConsultantRegisterController::class, 'index'])->name('consultant_register');
-Route::post('consultant_register_store', [siteConsultantRegisterController::class, 'store'])->name('consultant_register_store');
+Route::get('user_register', [siteConsultantRegisterController::class, 'index'])->name('user_register');
+Route::post('user_register_store', [siteConsultantRegisterController::class, 'store'])->name('user_register_store');
 
 //  *************  consultant register ***************
 
@@ -213,6 +213,7 @@ Route::middleware('userAuth')->get('checkout', [siteCartController::class, 'chec
 // ******************** site login ********************************
 
 Route::get('login', [siteAuthController::class, 'login'])->name('user.login');
+Route::get('doUserLogin', [siteAuthController::class, 'doUserLogin'])->name('doUserLogin');
 
 // ******************** site login ********************************
 
@@ -235,5 +236,6 @@ Route::middleware('loginMiddleware')
 //logout
 Route::post('/logout', function () {
     auth()->logout();
+    toast()->success('', 'با موفقیت خارج شدید')->autoClose(7500);
     return redirect()->route('home');
 })->name('logout');

@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\Validator;
 
 class siteConsultantRegisterController extends Controller
 {
-    public function index()
+    public function index(): \Illuminate\Contracts\View\View
     {
-        return view('login.consultant_register');
+        return view('login.user_register');
     }
-    public function store(Request $request)
+
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $input = $request->all();
 
@@ -35,19 +36,20 @@ class siteConsultantRegisterController extends Controller
         }
 
         $user_info = User::query()->create([
-           'first_name' => $input['first_name'],
-           'last_name' => $input['last_name'],
-           'mobile' => $input['mobile'],
-           'email' => 'test@'.Carbon::now().'@test.com',
-           'is_active' => 0,
+            'first_name' => $input['first_name'],
+            'last_name' => $input['last_name'],
+            'mobile' => $input['mobile'],
+            'email' => 'test@' . Carbon::now() . '@test.com',
+            'is_active' => 0,
         ]);
 
         RoleUser::query()->create([
-           'role_id' => 3 ,
-           'user_id' => $user_info['id'] ,
+            'role_id' => 3,
+            'user_id' => $user_info['id'],
         ]);
 
-        alert()->success('','با تشکر از عضویت شما در سایت نیزوا');
+        alert()->success('', 'با تشکر از عضویت شما در سایت نیزوا');
+
         return redirect()->route('home');
     }
 }

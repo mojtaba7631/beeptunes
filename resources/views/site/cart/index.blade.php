@@ -2,11 +2,23 @@
 @section('title')
     بیپ تونز | سبد خرید
 @endsection
+
 @section('custom-css')
     <style>
+        .single-class-area {
+            background: #f1f1f1;
+        }
+
+        .cart_card {
+            background: #fff;
+            border-radius: 30px;
+            padding: 50px 30px;
+        }
+
         .album_img {
             width: 60px;
         }
+
         #my_fullscreen_loader {
             width: 100%;
             height: 100%;
@@ -27,11 +39,28 @@
             left: 0;
             margin: auto;
         }
-        .btn_trash{
-         cursor: pointer;
+
+        .btn_trash {
+            cursor: pointer;
+        }
+
+        .cart_card table > tbody > tr > td {
+            vertical-align: middle;
+            padding: 15px 5px;
+        }
+
+        .cart_card table > tbody > tr > td img {
+            border-radius: 15px;
+        }
+
+        .total_price_in_cart {
+            padding: 15px 15px 0 15px;
+            margin: 15px 0 0 0;
+            border-radius: 15px;
         }
     </style>
 @endsection
+
 @section('custom-js')
     <script src="{{asset('vendor/sweetalert/sweetalert.all.js')}}"></script>
 
@@ -56,13 +85,14 @@
             // Set the cookie with name, value, expires, and path (optional)
             document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`;
         }
-        function getCookie(name) {
-            var cookieName = name + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var cookieArray = decodedCookie.split(';');
 
-            for (var i = 0; i < cookieArray.length; i++) {
-                var cookie = cookieArray[i];
+        function getCookie(name) {
+            let cookieName = name + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let cookieArray = decodedCookie.split(';');
+
+            for (let i = 0; i < cookieArray.length; i++) {
+                let cookie = cookieArray[i];
                 while (cookie.charAt(0) === ' ') {
                     cookie = cookie.substring(1);
                 }
@@ -74,10 +104,10 @@
             return null;
         }
 
-        function removeFromCart(tag,album_id) {
+        function removeFromCart(tag, album_id) {
             my_fullscreen_loader.slideDown();
 
-            var cart_cookie = getCookie('cart');
+            let cart_cookie = getCookie('cart');
 
             if (cart_cookie === null) {
                 location.reload();
@@ -108,10 +138,7 @@
 
                         $('.the_total_price').text(response.the_total_price + ' تومان ');
                         $(tag).parents('tr').remove();
-                        setTimeout(() => {
-                            location.reload();
-                        }, 500);
-
+                        $("#cart_count_span").text(response.cart_count)
                     }
                 },
                 error: function (xhr, status, error) {
@@ -124,6 +151,7 @@
         }
     </script>
 @endsection
+
 @section('content')
     <div id="my_fullscreen_loader">
         <img src="{{asset('site/assets/images/my_loader.svg')}}">
@@ -152,89 +180,110 @@
     <section class="single-class-area">
         <div class="container">
             @if(!empty($cart->all()))
-            <div class="row">
-                <div class="col-12 col-md-9">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-custom spacing8">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>محصول</th>
-                                <th>نام آلبوم</th>
-                                <th>نویسنده آلبوم</th>
-                                <th>قیمت واحد (تومان)</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @php
-                                $row = (($cart->currentPage() - 1) * $cart->perPage() ) + 1;
-                            @endphp
-                            @foreach($cart as $item)
-                                <tr>
-                                    <td class="w60">
-                                        <span>{{$row}}</span>
-                                    </td>
-                                    <td>
-                                        <img src="{{asset($item['album_image'])}}" class="album_img">
-                                    </td>
+                <div class="row">
+                    <div class="col-12 col-md-9">
+                        <div class="cart_card">
+                            <div class="table-responsive">
+                                <table class="table text-center">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>محصول</th>
+                                        <th>نام آلبوم</th>
+                                        <th>نویسنده آلبوم</th>
+                                        <th>قیمت واحد (تومان)</th>
+                                        <th>حذف</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @php
+                                        $row = (($cart->currentPage() - 1) * $cart->perPage() ) + 1;
+                                    @endphp
+                                    @foreach($cart as $item)
+                                        <tr>
+                                            <td class="w60">
+                                                <span>{{$row}}</span>
+                                            </td>
+                                            <td>
+                                                <img src="{{asset($item['album_image'])}}" class="album_img">
+                                            </td>
 
-                                    <td>
-                                        <p class="mb-0">
-                                            {{$item['album_title']}}
-                                        </p>
-                                    </td>
+                                            <td>
+                                                <p class="mb-0">
+                                                    {{$item['album_title']}}
+                                                </p>
+                                            </td>
 
-                                    <td>
-                                        <p class="mb-0">
-                                            {{$item['album_author']}}
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0">
-                                            {{@number_format($item['album_price'])}}
-                                        </p>
-                                    </td>
+                                            <td>
+                                                <p class="mb-0">
+                                                    {{$item['album_author']}}
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="mb-0">
+                                                    {{@number_format($item['album_price'])}}
+                                                </p>
+                                            </td>
 
-                                    <td>
-                                        <button onclick="removeFromCart(this , {{$item['album_id']}})" class="btn btn-danger btn-sm btn_trash" data-toggle="tooltip" title="حذف آلبوم">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                @php
-                                    $row++;
-                                @endphp
-                            @endforeach
-                            </tbody>
-                        </table>
+                                            <td>
+                                                <button onclick="removeFromCart(this , {{$item['album_id']}})"
+                                                        class="btn btn-danger btn-sm btn_trash" data-toggle="tooltip"
+                                                        title="حذف آلبوم">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        @php
+                                            $row++;
+                                        @endphp
+                                    @endforeach
 
-                        {{$cart->links()}}
-                    </div>
-                </div>
-                <div class="col-12 col-md-3">
-                    <div class="row">
-                        <div class="col-12">
-                            <h4>
-                                قیمت کل سبد خرید (تومان)
-                            </h4>
-                        </div>
-                        <div class="col-12 col-md-4">
-                            <label>
-                                جمع کل :
-                            </label>
-                        </div>
-                        <div class="col-12 col-md-8">
-                            <span class="the_total_price">{{@number_format($the_total_price)}} تومان</span>
-                        </div>
-                        <div class="col-12">
-                            <a href="{{route('checkout')}}" class="btn btn-success w-100 mt-3">
-                                تسویه حساب
-                            </a>
+                                    <tr>
+                                        <td colspan="4"></td>
+                                        <
+                                        <td class="fw-bold"> جمع کل</td>
+
+                                        <td class="fw-bold">
+                                            {{@number_format($the_total_price)}}
+                                            تومان
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                {{$cart->links()}}
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
+                    <div class="col-12 col-md-3">
+                        <div class="cart_card">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4 class="text-center fw-bold">
+                                        قیمت کل سبد خرید
+                                    </h4>
+                                </div>
+
+                                <div class="col-12 d-flex justify-content-between total_price_in_cart">
+                                    <span class="d-flex">جمع کل :</span>
+                                    <span
+                                        class="d-flex the_total_price">{{@number_format($the_total_price)}} تومان</span>
+                                </div>
+
+                                <div class="col-12 mt-4">
+                                    <div class="class-btn">
+                                        <a href="{{route('checkout')}}" class="box-btn cart_btn w-100">
+                                            <i class="fa fa-credit-card"></i>
+                                            <span>تسویه حساب</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             @else
                 <div class="row">
                     <div class="col-12">

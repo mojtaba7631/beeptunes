@@ -4,7 +4,7 @@
 @endsection
 @section('custom-css')
     <style>
-        .album_img{
+        .album_img {
             width: 100%;
             height: 300px;
         }
@@ -38,24 +38,26 @@
     <section class="class-area">
         <div class="container">
             <div class="row">
-               @foreach($albums_info as $albums)
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                    <div class="single-ragular-course">
-                        <div class="course-img">
-                            <img src="{{asset($albums['album_image'])}}" alt="music" class="album_img"/>
-                            <h2>{{$albums['album_title']}}</h2>
-                        </div>
-                        <div class="course-content">
-                            <p class="text-truncated h-100px">
-                                {{$albums['album_meta_description']}}
-                            </p>
+                @foreach($albums_info as $albums)
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                        <div class="single-ragular-course">
+                            <div class="course-img">
+                                <img src="{{asset($albums['album_image'])}}" alt="music" class="album_img"/>
+                                <h2>{{$albums['album_title']}}</h2>
+                            </div>
+                            <div class="course-content">
+                                <p class="text-truncated h-100px">
+                                    {{$albums['album_meta_description']}}
+                                </p>
 
-                            <a href="{{route('album_detail',['album_id' => $albums['id']])}}" class="border-btn text-white">
-                                ادامه خواندن
-                            </a>
+                                <a href="{{route('album_detail',['album_id' => $albums['id']])}}"
+                                   class="border-btn text-white w-100">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>مشاهده و خرید</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
             </div>
             <div class="row">

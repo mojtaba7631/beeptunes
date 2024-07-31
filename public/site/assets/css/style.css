@@ -229,10 +229,16 @@ a.scroll-top i {
 }
 
 .border-btn i {
-    margin-left: 10px;
-    font-size: 20px;
+    margin-left: 8px;
+    font-size: 15pt;
     position: relative;
-    top: 2px;
+    top: 0;
+}
+
+.border-btn span {
+    font-size: 10pt;
+    position: relative;
+    top: -3px;
 }
 
 .line-bnt {
@@ -2389,7 +2395,7 @@ a.scroll-top i {
     padding: 75px 0;
 }
 
-.single-class-area .single-class .class-contnet h2 {
+.single-class-area .single-class .class-content h2 {
     font-family: "sahel", serif;
     font-size: 24px;
     color: #181818;
@@ -2398,7 +2404,7 @@ a.scroll-top i {
     margin-bottom: 15px;
 }
 
-.single-class-area .single-class .class-contnet p {
+.single-class-area .single-class .class-content p {
     color: #616161;
     padding-right: 5%;
     line-height: 30px;
@@ -3999,6 +4005,15 @@ a.scroll-top i {
     animation: adshape 4s infinite linear;
 }
 
+.welcome_top {
+    border: 1px dashed #0b2e13;
+    padding: 7px 14px !important;
+    border-radius: 15px;
+    font-size: 9pt !important;
+    display: block !important;
+    margin-top: -6px !important;
+}
+
 @keyframes adshape {
     0% {
         -webkit-transform: translate(-20px);
@@ -4018,14 +4033,13 @@ a.scroll-top i {
     -webkit-box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
     box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
     padding: 40px;
-    border-radius: 5px;
+    border-radius: 30px;
 }
 
 .signup-area .signup-form h2 {
-    font-size: 30px;
+    font-size: 16pt;
     font-weight: bold;
-    font-family: "sahel", serif;
-    margin-bottom: 20px;
+    margin: 50px 0 30px 0;
 }
 
 .signup-area .signup-form .form-group {
@@ -4899,6 +4913,14 @@ a.scroll-top i {
     line-height: 24px;
     left: 0;
     font-size: 9pt;
+}
+
+.my_toast_txt {
+    margin-bottom: 0;
+}
+
+.swal2-popup.swal2-toast .swal2-html-container {
+    margin: 20px 15px !important;
 }
 
 /*# sourceMappingURL=style.css.map */

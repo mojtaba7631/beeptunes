@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('gender')->nullable()->default(null);;
             $table->string('national_code',20)->nullable()->default(null);;
             $table->date('birth_day')->nullable()->default(null);;
-            $table->string('email')->unique();
+            $table->string('email')->nullable()->default(null);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->default(null)->nullable();
             $table->unsignedInteger('is_active')->default(1);

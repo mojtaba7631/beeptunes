@@ -47,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('user_info', $user_info);
         });
 
-        View::composer(["site.*"], function ($view) {
+        View::composer(["site.*", "login.*"], function ($view) {
 
             if (isset($_COOKIE['cart'])) {
                 $cookie = $_COOKIE['cart'];

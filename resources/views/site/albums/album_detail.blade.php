@@ -2,51 +2,104 @@
 @section('title')
     بیپ تونز | آلبوم فلان
 @endsection
+
 @section('custom-css')
     <style>
+        .single-class-area {
+            background: #f1f1f1;
+        }
+
         .album_box {
-            background: #01a263;
-            color: #fff;
-            padding: 10px;
+            border: 1px dashed #005f55;
+            padding: 10px 15px;
             border-radius: 10px;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            margin-right: 12px;
-            font-size: 10px;
-            display: inline-block;
+            font-size: 10pt;
+            display: flex;
+            cursor: default;
+            font-weight: bold;
         }
 
         .track_img {
-            width: 30px;
-            height: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
         }
 
         .name_track {
             border: #0a53be solid 1px;
-            padding: 1px;
             border-radius: 5px;
             font-size: 10px;
+            padding: 3px 6px;
             margin-left: 5px;
         }
 
         .time_track {
             border: #6a1a21 solid 1px;
-            padding: 1px;
             border-radius: 5px;
             font-size: 10px;
-            margin-right: 2px;
+            padding: 3px 6px;
         }
 
         .audio_css {
-            height: 30px !important;
+            height: 45px !important;
+            width: 100%;
         }
 
         .cart_btn[disabled] {
             opacity: .5;
             filter: blur(4px);
         }
+
+        .album_box_content, .album_box_sidebar {
+            background: #fff;
+            padding: 50px 30px;
+            border-radius: 30px;
+        }
+
+        .album_box_content .album_image {
+            border-radius: 30px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .album_box_content .album_description {
+            border: 1px dashed #005f55;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .album_box_content .album_title {
+            border: 1px dashed rgba(0, 95, 85, 0.3);
+            color: #005f55;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            font-size: 18pt;
+        }
+
+        .album_box_sidebar .sidebar_title {
+            border: 1px dashed #005f55;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            font-size: 14pt;
+        }
+
+        .album_box_sidebar .track_title {
+            font-size: 10pt;
+            font-weight: bold;
+        }
+
+        .album_box_sidebar .each_track {
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+            margin: 15px 0;
+        }
     </style>
 @endsection
+
 @section('custom-js')
     <script src="{{asset('vendor/sweetalert/sweetalert.all.js')}}"></script>
     <script>
@@ -66,7 +119,7 @@
 
             $(tag).prop('disabled', true);
 
-            var cart_cookie = getCookie('cart');
+            let cart_cookie = getCookie('cart');
 
             if (cart_cookie == null) {
                 cart_cookie = new Date().getTime();
@@ -90,13 +143,11 @@
                         show_sweetalert_msg(response.message, 'error');
                         setTimeout(() => {
                             location.reload();
-                        } , 2000) ;
+                        }, 2000);
                     } else {
                         show_sweetalert_msg(response.message, 'success');
                         $(tag).prop('disabled', false);
-                        setTimeout(() => {
-                            location.reload();
-                        } , 1000) ;
+                        $("#cart_count_span").text(response.cart_count)
                     }
                 },
                 error: function (xhr, status, error) {
@@ -116,12 +167,12 @@
         }
 
         function getCookie(name) {
-            var cookieName = name + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var cookieArray = decodedCookie.split(';');
+            let cookieName = name + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let cookieArray = decodedCookie.split(';');
 
-            for (var i = 0; i < cookieArray.length; i++) {
-                var cookie = cookieArray[i];
+            for (let i = 0; i < cookieArray.length; i++) {
+                let cookie = cookieArray[i];
                 while (cookie.charAt(0) === ' ') {
                     cookie = cookie.substring(1);
                 }
@@ -163,257 +214,85 @@
     <section class="single-class-area">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-md-9 text-center">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="class-img">
-                                <img src="{{asset($album_info['album_image'])}}" alt="about"/>
+                <div class="col-12 col-lg-9 col-xl-8 text-center">
+                    <div class="album_box_content">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-8 col-xl-6">
+                                <img class="album_image" src="{{asset($album_info['album_image'])}}"
+                                     alt="پژواک نیزوا | {{$album_info['album_title']}}"/>
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <h2>{{$album_info['album_title']}}</h2>
-                            {!! $album_info['album_content'] !!}
-                        </div>
-                        <div class="col-12">
-                            <div class="album_box">
-                                اثری از :
-                                {{$album_info['album_author']}}
-                            </div>
-                            <div class="album_box">
-                                دسته :
-                                {{\App\Helper\GetCategoryTitle::get_category_title($album_info['category_album'])}}
-                            </div>
-                            <div class="album_box">
-                                مجوز ارشاد :
-                                {{$album_info['album_guidance_permit']}}
-                            </div>
-                            <div class="album_box">
-                                کد کتابخانه ملی :
-                                {{$album_info['album_national_library_code']}}
-                            </div>
-                            <div class="album_box">
-                                تاریخ انتشار :
-                                {{\App\Helper\ConvertDateToJalali::convert_date_to_jalali($album_info['created_at'])}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="single-class">
 
+                            <div class="col-12 mt-4">
+                                <h2 class="album_title">
+                                    {{$album_info['album_title']}}
+                                </h2>
 
-                        <div class="class-contnet">
+                                <div class="col-12 d-flex p-0 justify-content-between">
+                                    <div class="album_box">
+                                        اثری از :
+                                        {{$album_info['album_author']}}
+                                    </div>
+                                    <div class="album_box">
+                                        دسته :
+                                        {{\App\Helper\GetCategoryTitle::get_category_title($album_info['category_album'])}}
+                                    </div>
+                                    <div class="album_box">
+                                        مجوز ارشاد :
+                                        {{$album_info['album_guidance_permit']}}
+                                    </div>
+                                    <div class="album_box">
+                                        کد کتابخانه ملی :
+                                        {{$album_info['album_national_library_code']}}
+                                    </div>
+                                    <div class="album_box">
+                                        تاریخ انتشار :
+                                        {{\App\Helper\ConvertDateToJalali::convert_date_to_jalali($album_info['created_at'])}}
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="col-12 mt-3">
+                                <div class="album_description text-justify">
+                                    {!! $album_info['album_content'] !!}
+                                </div>
+                            </div>
                         </div>
-                        <div>
 
-                        </div>
-                        <div class="class-btn">
-                            <button type="submit" onclick="addToCart(this)" class="box-btn cart_btn">
-                                افزودن به سبد خرید
-                            </button>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="class-btn">
+                                    <button type="submit" onclick="addToCart(this)" class="box-btn cart_btn">
+                                        <i class="fa fa-shopping-basket"></i>
+                                        <span>افزودن به سبد خرید</span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-12 col-md-3 text-center">
-                    <div class="class-content-right">
+                <div class="col-12 col-lg-3 col-xl-4 text-center">
+                    <div class="album_box_sidebar">
+                        <h3 class="sidebar_title">ترک های آلبوم</h3>
 
-                        <p class="visit">ترک های آلبوم</p>
+                        <ul class="class-list m-0 p-0">
+                            <li class="w-100 each_track">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <img src="{{asset($album_info['album_image'])}}" class="d-flex track_img">
 
-                        <ul class="class-list">
-                            <li>
-                                <img src="{{asset($album_info['album_image'])}}" class="track_img">
-                                <span>
-                                    ترک اول
-                                </span>
-                                <p class="mt-1">
-                                    <span class="name_track">
-                                        یمین غفاری
-                                    </span>
-                                    <span class="time_track">
-                                    3:46
-                                </span>
-                                </p>
-                                <audio controls class="audio_css">
-                                    <source src="#" type="audio/ogg">
-                                    <source src="#" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
+                                    <h6 class="d-flex track_title mb-0">
+                                        ترک اول
+                                    </h6>
 
-                            </li>
-                            <li>
-                                <img src="{{asset($album_info['album_image'])}}" class="track_img">
-                                <span>
-                                    ترک دوم
-                                </span>
-                                <p class="mt-1">
-                                    <span class="name_track">
-                                        یمین غفاری
-                                    </span>
-                                    <span class="time_track">
-                                    3:46
-                                </span>
-                                </p>
-                                <audio controls class="audio_css">
-                                    <source src="#" type="audio/ogg">
-                                    <source src="#" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
-                            </li>
-                            <li>
-                                <img src="{{asset($album_info['album_image'])}}" class="track_img">
-                                <span>
-                                    ترک دوم
-                                </span>
-                                <p class="mt-1">
-                                    <span class="name_track">
-                                        یمین غفاری
-                                    </span>
-                                    <span class="time_track">
-                                    3:46
-                                </span>
-                                </p>
-                                <audio controls class="audio_css">
-                                    <source src="#" type="audio/ogg">
-                                    <source src="#" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
-                            </li>
-                            <li>
-                                <img src="{{asset($album_info['album_image'])}}" class="track_img">
-                                <span>
-                                    ترک دوم
-                                </span>
-                                <p class="mt-1">
-                                    <span class="name_track">
-                                        یمین غفاری
-                                    </span>
-                                    <span class="time_track">
-                                    3:46
-                                </span>
-                                </p>
-                                <audio controls class="audio_css">
-                                    <source src="#" type="audio/ogg">
-                                    <source src="#" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
-                            </li>
-                            <li>
-                                <img src="{{asset($album_info['album_image'])}}" class="track_img">
-                                <span>
-                                    ترک دوم
-                                </span>
-                                <p class="mt-1">
-                                    <span class="name_track">
-                                        یمین غفاری
-                                    </span>
-                                    <span class="time_track">
-                                    3:46
-                                </span>
-                                </p>
-                                <audio controls class="audio_css">
-                                    <source src="#" type="audio/ogg">
-                                    <source src="#" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
-                            </li>
-                            <li>
-                                <img src="{{asset($album_info['album_image'])}}" class="track_img">
-                                <span>
-                                    ترک اول
-                                </span>
-                                <p class="mt-1">
-                                    <span class="name_track">
-                                        یمین غفاری
-                                    </span>
-                                    <span class="time_track">
-                                    3:46
-                                </span>
-                                </p>
-                                <audio controls class="audio_css">
-                                    <source src="#" type="audio/ogg">
-                                    <source src="#" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
+                                    <div class="d-flex">
+                                        <span class="name_track"> یمین غفاری </span>
+                                        <span class="time_track"> 3:46 </span>
+                                    </div>
+                                </div>
 
-                            </li>
-                            <li>
-                                <img src="{{asset($album_info['album_image'])}}" class="track_img">
-                                <span>
-                                    ترک دوم
-                                </span>
-                                <p class="mt-1">
-                                    <span class="name_track">
-                                        یمین غفاری
-                                    </span>
-                                    <span class="time_track">
-                                    3:46
-                                </span>
-                                </p>
-                                <audio controls class="audio_css">
-                                    <source src="#" type="audio/ogg">
-                                    <source src="#" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
-                            </li>
-                            <li>
-                                <img src="{{asset($album_info['album_image'])}}" class="track_img">
-                                <span>
-                                    ترک دوم
-                                </span>
-                                <p class="mt-1">
-                                    <span class="name_track">
-                                        یمین غفاری
-                                    </span>
-                                    <span class="time_track">
-                                    3:46
-                                </span>
-                                </p>
-                                <audio controls class="audio_css">
-                                    <source src="#" type="audio/ogg">
-                                    <source src="#" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
-                            </li>
-                            <li>
-                                <img src="{{asset($album_info['album_image'])}}" class="track_img">
-                                <span>
-                                    ترک دوم
-                                </span>
-                                <p class="mt-1">
-                                    <span class="name_track">
-                                        یمین غفاری
-                                    </span>
-                                    <span class="time_track">
-                                    3:46
-                                </span>
-                                </p>
-                                <audio controls class="audio_css">
-                                    <source src="#" type="audio/ogg">
-                                    <source src="#" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
-                            </li>
-                            <li>
-                                <img src="{{asset($album_info['album_image'])}}" class="track_img">
-                                <span>
-                                    ترک دوم
-                                </span>
-                                <p class="mt-1">
-                                    <span class="name_track">
-                                        یمین غفاری
-                                    </span>
-                                    <span class="time_track">
-                                    3:46
-                                </span>
-                                </p>
-                                <audio controls class="audio_css">
-                                    <source src="#" type="audio/ogg">
-                                    <source src="#" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
+                                <audio controls class="audio_css mt-2"></audio>
                             </li>
                         </ul>
-
                     </div>
                 </div>
             </div>
