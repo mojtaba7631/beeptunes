@@ -181,7 +181,7 @@
         <div class="container">
             @if(!empty($cart->all()))
                 <div class="row">
-                    <div class="col-12 col-md-9">
+                    <div class="col-12 col-lg-8">
                         <div class="cart_card">
                             <div class="table-responsive">
                                 <table class="table text-center">
@@ -256,7 +256,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-3">
+                    <div class="col-12 col-lg-4">
                         <div class="cart_card">
                             <div class="row">
                                 <div class="col-12">

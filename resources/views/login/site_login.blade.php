@@ -1,7 +1,7 @@
 @extends('layouts.site_layout')
 
-@section('Title')
-    ورود
+@section('title')
+    پژواک نیزوا | ورود به حساب کاربری
 @endsection
 
 @section('custom-css')
@@ -107,7 +107,6 @@
             <div class="row align-items-center">
                 <div class="col-12 col-lg-6 text-center">
                     <div class="signup-form">
-
                         <img src="{{asset('site/assets/images/logo.png')}}" alt="پژواک نیزوا">
 
                         <h2>ورود به نیزوا</h2>
@@ -117,13 +116,15 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input name="username" type="text" class="form-control" placeholder="نام کاربری">
+                                        <input name="username" type="text" class="form-control"
+                                               placeholder="نام کاربری">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input name="password" type="password" class="form-control" placeholder="رمز عبور">
+                                        <input name="password" type="password" class="form-control"
+                                               placeholder="رمز عبور">
                                     </div>
                                 </div>
 
@@ -133,7 +134,7 @@
                                     </button>
                                 </div>
 
-                                <div>
+                                <div class="mt-4">
                                     حساب کاربری ندارید؟
                                     <a href="{{route('user_register')}}">
                                         ثبت نام کنید

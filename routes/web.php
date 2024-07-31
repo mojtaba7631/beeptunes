@@ -221,6 +221,7 @@ Route::get('doUserLogin', [siteAuthController::class, 'doUserLogin'])->name('doU
 //  *************  site ***************
 
 //register for user
+Route::post('doRegisterConfirmCode',[siteAuthController::class,'doRegister'])->name('site.doRegisterConfirmCode');
 Route::post('doRegister',[siteAuthController::class,'doRegister'])->name('site.doRegister');
 
 //login & logout for admin

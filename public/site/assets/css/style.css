@@ -4058,7 +4058,7 @@ a.scroll-top i {
     box-shadow: 0 0 0 0.04rem #005F55;
 }
 
-.signup-area .signup-form .box-btn {
+.signup-area .signup-form .box-btn, .class-btn .box-btn {
     background: #005F55;
     border: 1px solid transparent;
     color: #fff;
@@ -4066,8 +4066,8 @@ a.scroll-top i {
     padding: 20px 45px;
 }
 
-.signup-area .signup-form .box-btn:hover {
-    border: 1px dashed #005F55;
+.signup-area .signup-form .box-btn:hover, .class-btn .box-btn:hover {
+    border: 1px dashed #005F55 !important;
     color: #181818;
     background: #fff;
 }

@@ -1,7 +1,7 @@
 @extends('layouts.site_layout')
 
-@section('Title')
-    تسویه حساب
+@section('title')
+    پژواک نیزوا | تسویه حساب
 @endsection
 
 @section('custom-css')
@@ -25,6 +25,27 @@
             bottom: 0;
             left: 0;
             margin: auto;
+        }
+
+        .cart_card {
+            background: #fff;
+            border-radius: 30px;
+            padding: 50px 30px;
+        }
+
+        .cart_card table > tbody > tr > td {
+            vertical-align: middle;
+            padding: 15px 5px;
+        }
+
+        .cart_card table > tbody > tr > td img {
+            border-radius: 15px;
+        }
+
+        .total_price_in_cart {
+            padding: 15px 15px 0 15px;
+            margin: 15px 0 0 0;
+            border-radius: 15px;
         }
 
         .checkout_title {
@@ -92,17 +113,14 @@
             width: 60px;
         }
 
-        .album_type_css {
-            border: 1px solid #9d1c1c;
-            padding: 2px 10px;
-            font-size: 10px;
-            border-radius: 4px;
-        }
-
         @media (max-width: 766px) {
             .address_box label {
                 font-size: 10pt;
             }
+        }
+
+        .cart-area {
+            background: #f1f1f1;
         }
     </style>
 @endsection
@@ -268,166 +286,188 @@
     </div>
     <!-- End Page Title Area -->
 
-    <section class="cart-area mt-4 ptb-100">
+    <section class="cart-area pt-5 pb-5">
         <div class="container">
             @if(!empty($cart->all()))
                 <div class="row">
-                    <div class="col-lg-8 col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h4 class="checkout_title">فاکتور خرید</h4>
-                                    </div>
+                    <div class="col-12 col-lg-8 col-md-12">
+
+                        <div class="cart_card">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4 class="checkout_title">فاکتور خرید</h4>
                                 </div>
-                                <div class="cart-table table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table text-center">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>محصول</th>
+                                        <th>نام آلبوم</th>
+                                        <th>نویسنده آلبوم</th>
+                                        <th>قیمت واحد (تومان)</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @php
+                                        $row = 1;
+                                    @endphp
+                                    @foreach($cart as $item)
                                         <tr>
-                                            <th scope="col">تصویر آلبوم</th>
-                                            <th scope="col">نام آلبوم</th>
-                                            <th scope="col">قیمت واحد</th>
+                                            <td class="w60">
+                                                <span>{{$row}}</span>
+                                            </td>
+                                            <td>
+                                                <img src="{{asset($item['album_image'])}}" class="album_img">
+                                            </td>
+
+                                            <td>
+                                                <p class="mb-0">
+                                                    {{$item['album_title']}}
+                                                </p>
+                                            </td>
+
+                                            <td>
+                                                <p class="mb-0">
+                                                    {{$item['album_author']}}
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="mb-0">
+                                                    {{@number_format($item['album_price'])}}
+                                                </p>
+                                            </td>
                                         </tr>
-                                        </thead>
-                                        <tbody>
+                                        @php
+                                            $row++;
+                                        @endphp
+                                    @endforeach
 
-                                        @php $total_price = 0; @endphp
-                                        @foreach($cart as $item)
-                                            @php
-                                                //                                                $company_name = $item->product->companies()->where('company_id', $item['company_id'])->first()->company_name;
-                                                //                                                $price = $item->product->companies()->where('company_id', $item['company_id'])->first()->pivot->price;
-                                                //                                                $inventory = $item->product->companies()->where('company_id', $item['company_id'])->first()->pivot->inventory;
-                                                //                                                $total_price += $item['count'] * $price;
-                                            @endphp
-                                            <tr>
-                                                <td class="album-thumbnail">
-                                                    <a href="#">
-                                                        <img src="{{asset($item['album_image'])}}" class="album_img">
-                                                    </a>
-                                                </td>
-                                                <td class="product-name">
-                                                    <a href="{{route('album_detail',['album_id' => $item['album_id']])}}">
-                                                        <p>
-                                                            {{$item['album_title']}}
-                                                        </p>
-                                                    </a>
-                                                    <p>
-                                                        <span class="album_type_css">
-                                                        {{$item['album_type']}}
-                                                        </span>
-                                                    </p>
-                                                </td>
-                                                <td class="product-price">
-                                                    <span class="unit-amount">
-                                                        {{@number_format($item['album_price'])}}
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                    <tr>
+                                        <td colspan="3"></td>
 
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        <td class="fw-bold"> جمع کل</td>
+
+                                        <td class="fw-bold">
+                                            {{@number_format($the_total_price)}}
+                                            تومان
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
                         @if($phisical == 1)
-                            <div class="card mt-3">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <h4 class="checkout_title clearfix">
-                                                نشانی تحویل گیرنده
+                            <div class="cart_card mt-3">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4 class="checkout_title clearfix">
+                                            نشانی تحویل گیرنده
 
-                                                <button data-bs-toggle="modal" data-bs-target="#addressModal"
-                                                        class="add_new_address">
-                                                    <i class="bx bx-plus ml-2"></i>
-                                                    افزودن آدرس جدید
-                                                </button>
-                                            </h4>
-                                        </div>
+                                            <button data-bs-toggle="modal" data-bs-target="#addressModal"
+                                                    class="add_new_address">
+                                                <i class="bx bx-plus ml-2"></i>
+                                                افزودن آدرس جدید
+                                            </button>
+                                        </h4>
                                     </div>
-                                    <div class="row">
-                                        @if(!empty($addresses->all()))
-                                            <div class="col-12">
-                                                @foreach($addresses as $address)
-                                                    <div class="address_box mb-4">
-                                                        <div class="w-100 clearfix">
-                                                            <input value="{{$address['id']}}" class="float-right"
-                                                                   type="radio" name="address">
-                                                            <label class="float-right">
-                                                                {{$address['address_title']}}
-                                                            </label>
-                                                        </div>
-
-                                                        <p class="mb-0 w-100">
-                                                            {{$address['address']}}
-                                                        </p>
+                                </div>
+                                <div class="row">
+                                    @if(!empty($addresses->all()))
+                                        <div class="col-12">
+                                            @foreach($addresses as $address)
+                                                <div class="address_box mb-4">
+                                                    <div class="w-100 clearfix">
+                                                        <input value="{{$address['id']}}" class="float-right"
+                                                               type="radio" name="address">
+                                                        <label class="float-right">
+                                                            {{$address['address_title']}}
+                                                        </label>
                                                     </div>
-                                                @endforeach
-                                            </div>
-                                        @else
-                                            <div class="col-12">
-                                                <div class="alert alert-danger my_error_danger clearfix">
-                                                    <i class="bx bx-error ml-2"></i>
-                                                    <p>
-                                                        آدرسی یافت نشد. افزودن حداقل یک آدرس و انتخاب آن الزامی می باشد.
-                                                    </p>
+
+                                                    <p class="mb-0 w-100">
+                                                        {{$address['address']}}
                                                     </p>
                                                 </div>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <div class="col-12">
+                                            <div class="alert alert-danger my_error_danger clearfix">
+                                                <i class="bx bx-error ml-2"></i>
+                                                <p>
+                                                    آدرسی یافت نشد. افزودن حداقل یک آدرس و انتخاب آن الزامی می باشد.
+                                                </p>
+                                                </p>
                                             </div>
-                                        @endif
-                                    </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         @endif
 
-                        <div class="card mt-3">
-                            <div class="card-body">
-                                <p class="alert alert-info">
-                                    دقت بفرمایید آلبوم هایی که به صورت فیزیکی به شما تعلق میگیرد ، فایل دانلودی نیز دارد
-                                    که پس از پرداخت در پنل کاربری خود به آنها دسترسی خواهید داشت.
-                                </p>
-                            </div>
-                        </div>
 
+                        <div class="cart_card mt-3">
+                            <p class="alert alert-info">
+                                دقت بفرمایید آلبوم هایی که به صورت فیزیکی به شما تعلق میگیرد ، فایل دانلودی نیز دارد
+                                که پس از پرداخت در پنل کاربری خود به آنها دسترسی خواهید داشت.
+                            </p>
+                        </div>
                     </div>
 
+                    <div class="col-12 col-lg-4 col-md-12">
+                        <div class="cart_card">
+                            {{--                            <div class="cart-buttons mt-0 mb-4">--}}
+                            {{--                                <div class="row align-items-center">--}}
+                            {{--                                    <div class="col-12">--}}
+                            {{--                                        <div class="d-flex justify-content-between align-items-center shopping-coupon-code">--}}
+                            {{--                                            <input type="text"--}}
+                            {{--                                                   class="form-control d-flex"--}}
+                            {{--                                                   placeholder="کد تخفیف"--}}
+                            {{--                                                   name="coupon-code"--}}
+                            {{--                                                   id="coupon-code">--}}
 
-                    <div class="col-lg-4 col-md-12">
-                        <div class="cart-buttons mt-0 mb-4">
-                            <div class="row align-items-center">
-                                <div class="col-12">
-                                    <div class="shopping-coupon-code">
-                                        <input type="text" class="form-control" placeholder="کد تخفیف"
-                                               name="coupon-code"
-                                               id="coupon-code">
-                                        <button class="btn btn-primary mt-2" type="submit">بررسی کد</button>
+                            {{--                                            <button class="btn btn-primary d-flex" type="submit">--}}
+                            {{--                                                بررسی--}}
+                            {{--                                            </button>--}}
+                            {{--                                        </div>--}}
+                            {{--                                    </div>--}}
+                            {{--                                </div>--}}
+                            {{--                            </div>--}}
+
+                            <div class="cart-totals">
+                                <h3 class="text-center">فاکتور نهایی</h3>
+
+                                <ul class="text-center">
+                                    <li class="mt-5 d-flex justify-content-between">
+                                        <span class="d-flex">جمع فاکتور</span>
+                                        <span class="d-flex">
+                                            {{@number_format($the_total_price)}} تومان
+                                        </span>
+                                    </li>
+
+                                    <li class="mt-3 d-flex justify-content-between">
+                                       <span class="flex">
+                                           مبلغ قابل پرداخت
+                                       </span>
+                                        <span class="flex the_total_price text-danger">
+                                            {{@number_format($the_total_price)}} تومان
+                                        </span>
+                                    </li>
+                                </ul>
+
+                                <div class="col-12 mt-4">
+                                    <div class="class-btn">
+                                        <a href="{{route('checkout')}}" class="box-btn cart_btn w-100">
+                                            <i class="fa fa-credit-card"></i>
+                                            <span>تسویه حساب</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="cart-totals">
-                            <h3>فاکتور نهایی</h3>
-                            <ul>
-                                <li>
-                                    جمع فاکتور
-                                    <span>{{@number_format($the_total_price)}} تومان</span>
-                                </li>
-                                {{--                                <li>--}}
-                                {{--                                    هزینه ارسال--}}
-                                {{--                                    <span class="shipping_price_left">شیوه ارسال انتخاب نشده است</span>--}}
-                                {{--                                </li>--}}
-                                <li>
-                                    مبلغ قابل پرداخت
-                                    <span
-                                        class="the_total_price text-danger">{{@number_format($the_total_price)}} تومان</span>
-                                </li>
-                            </ul>
-                            <button onclick="payment()" class="btn btn-success w-100 mb-2 mt-4">
-                                پرداخت نهایی
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -463,7 +503,8 @@
                     <div class="row">
                         <div class="col-12">
                             <label>عنوان آدرس</label>
-                            <input required="required" name="address_title" type="text" class="form-control form-control-sm">
+                            <input required="required" name="address_title" type="text"
+                                   class="form-control form-control-sm">
                         </div>
                         <div class="col-12 mt-4">
                             <label>آدرس</label>

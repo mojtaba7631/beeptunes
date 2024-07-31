@@ -108,4 +108,57 @@ class siteAuthController extends Controller
             'message' => 'ثبت نام شما با موفقیت انجام شد'
         ]);
     }
+
+    public function doRegisterConfirmCode(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $input = $request->all();
+
+        $validation = Validator::make($input, [
+            'mobile' => 'required|regex:/(09)[0-9]{9}/|digits:11|numeric',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'error' => true,
+                'message' => $validation->errors()->first()
+            ]);
+        }
+
+        $user = User::query()
+            ->where('mobile', '=', $input['mobile'])
+            ->first();
+
+        if ($user) {
+            return response()->json([
+                'error' => true,
+                'message' => 'شما قبلا عضو شده اید، لطفا از قسمت زیر وارد شوید'
+            ]);
+        }
+
+        $valid_otp = OTP::query()
+            ->where('mobile', $input['mobile'])
+            ->where('description', 'register otp')
+            ->first();
+
+        $code = rand(10000, 99999);
+
+        if ($valid_otp) {
+            $valid_otp->update([
+                'code' => $code
+            ]);
+        } else {
+            OTP::query()->create([
+                'mobile' => $input['mobile'],
+                'code' => $code,
+                'description' => 'register otp',
+            ]);
+        }
+
+        //SEND SMS HERE
+
+        return response()->json([
+            'error' => false,
+            'message' => 'کد تایید با برای شما ارسال شد'
+        ]);
+    }
 }

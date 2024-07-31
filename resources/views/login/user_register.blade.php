@@ -1,7 +1,7 @@
 @extends('layouts.site_layout')
 
 @section('title')
-    روشی نو | ثبت نام
+    پژواک نیزوا | ثبت نام
 @endsection
 
 @section('custom-css')
@@ -14,8 +14,8 @@
             margin-right: 10px !important;
         }
 
-        .signup-area .signup-form .form-control {
-            height: 38px !important;
+        input::placeholder {
+            color: #aaa !important;
         }
 
         .register_step_2 {
@@ -43,7 +43,7 @@
             margin: auto;
         }
 
-        .otp_code_inp{
+        .otp_code_inp {
             text-align: center;
             letter-spacing: 25px;
             font-size: 12pt !important;
@@ -143,9 +143,39 @@
 
         function showRegisterStepTwo() {
             register_step_1.slideUp();
-            setTimeout(() => {
-                register_step_2.slideDown();
-            }, 500);
+
+            $.ajax({
+                url: '{{route("site.doRegisterConfirmCode")}}',
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                headers: {
+                    "Accept": "application/json"
+                },
+
+                success: function (response) {
+                    if (response.error) {
+                        show_sweetalert_msg(response.message, 'error');
+                        my_fullscreen_loader.slideUp();
+                        return false;
+                    } else {
+                        show_sweetalert_msg(response.message, 'success');
+                        setTimeout(() => {
+                            window.location.href = "{{route('home')}}";
+                        }, 1500);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    show_sweetalert_msg('خطای سمت سرور رخ داده است، لطفا اندکی بعد تلاش کنید', 'error');
+                    setTimeout(() => {
+                        location.reload();
+                    }, 3500);
+                }
+            });
+
+            // setTimeout(() => {
+            //     register_step_2.slideDown();
+            // }, 500);
         }
 
         function doRegister() {
@@ -181,8 +211,8 @@
                 error: function (xhr, status, error) {
                     show_sweetalert_msg('خطای سمت سرور رخ داده است، لطفا اندکی بعد تلاش کنید', 'error');
                     setTimeout(() => {
-                        //loacation.reload();
-                    }, 2000);
+                        location.reload();
+                    }, 3500);
                 }
             });
         }
@@ -193,6 +223,7 @@
     <div id="my_fullscreen_loader">
         <img src="{{asset('site/assets/images/my_loader.svg')}}">
     </div>
+
     <!-- Start Page Title Area -->
     <div class="banner-area about">
         <div class="d-table">
@@ -217,87 +248,93 @@
     <!-- SignUp -->
     <section class="signup-area">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-12 col-md-3">
-                    <div class="sign-up-img">
-                        <img src="{{asset('site/assets/images/signup.svg')}}" alt="singup">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8 col-xl-6">
+
+                    <div class="signup-form">
+                        <div class="text-center">
+                            <img src="{{asset('site/assets/images/logo.png')}}" alt="ثبت نام در پژواک نیزوا">
+                        </div>
+
+                        <h2 class="text-center">
+                            ثبت نام در نیزوا
+                        </h2>
+                        <div class="row">
+                            <div class="col-12 register_step_1">
+                                <div class="form-group">
+                                    <label class="small mr-10 mb-2">نام</label>
+                                    @error('first_name')
+                                    <span class="validation_label_error">{{$message}}</span>
+                                    @enderror
+                                    <input type="text" class="form-control" name="first_name"
+                                           id="register_first_name">
+                                </div>
+                            </div>
+
+                            <div class="col-12 register_step_1">
+                                <div class="form-group">
+                                    <label class="small mr-10 mb-2">نام خانوادگی</label>
+                                    @error('last_name')
+                                    <span class="validation_label_error">{{$message}}</span>
+                                    @enderror
+                                    <input type="text" class="form-control" name="last_name" id="register_last_name">
+                                </div>
+                            </div>
+
+                            <div class="col-12 register_step_1">
+                                <div class="form-group">
+                                    <label class="small mr-10 mb-2">تلفن همراه</label>
+                                    @error('mobile')
+                                    <span class="validation_label_error">{{$message}}</span>
+                                    @enderror
+                                    <input type="text" class="form-control text-right" name="mobile"
+                                           id="register_mobile"
+                                           placeholder="09..." style="direction: ltr">
+                                </div>
+                            </div>
+
+                            <div class="col-12 register_step_2">
+                                <div class="form-group">
+                                    <label class="small mr-10 mb-2">کد تایید</label>
+                                    @error('agree_code')
+                                    <span class="validation_label_error">{{$message}}</span>
+                                    @enderror
+                                    <input type="text" class="form-control text-center otp_code_inp" name="agree_code"
+                                           id="register_agree_code">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row register_step_1" dir="ltr">
+                            <div class="col-12">
+                                <button type="button" onclick="sendRegisterConfirmCode()" class="box-btn w-100">
+                                    دریافت کد تایید
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row register_step_2" dir="ltr">
+                            <div class="col-12">
+                                <button onclick="doRegister()" type="submit" class="box-btn w-100">
+                                    ثبت نام
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-12 text-center">
+                                قبلا عضو شده اید؟
+                                <a href="{{route('user.login')}}">
+                                    وارد شوید
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-12 col-md-9">
-                    <div class="signup-form">
-                        <h2>
-                            ثبت نام
-                        </h2>
-{{--                        <form action="{{route('consultant_register_store')}}" method="post"--}}
-{{--                              enctype="multipart/form-data">--}}
-{{--                            @csrf--}}
-                            <div class="row">
-                                <div class="col-12 col-md-4 register_step_1">
-                                    <div class="form-group">
-                                        <label class="small mr-10 mb-2">نام</label>
-                                        @error('first_name')
-                                        <span class="validation_label_error">{{$message}}</span>
-                                        @enderror
-                                        <input type="text" class="form-control" name="first_name"
-                                               id="register_first_name"
-                                               placeholder="لطفا نام خود را وارد نمایید">
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4 register_step_1">
-                                    <div class="form-group">
-                                        <label class="small mr-10 mb-2">نام خانوادگی</label>
-                                        @error('last_name')
-                                        <span class="validation_label_error">{{$message}}</span>
-                                        @enderror
-                                        <input type="text" class="form-control" name="last_name" id="register_last_name"
-                                               placeholder="لطفا نام خانوادگی خود را وارد نمایید">
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4 register_step_1">
-                                    <div class="form-group">
-                                        <label class="small mr-10 mb-2">تلفن همراه</label>
-                                        @error('mobile')
-                                        <span class="validation_label_error">{{$message}}</span>
-                                        @enderror
-                                        <input type="text" class="form-control text-right" name="mobile"
-                                               id="register_mobile"
-                                               placeholder="لطفا موبایل خود را وارد نمایید" style="direction: ltr">
-                                    </div>
-                                </div>
-
-                                <div class="col-12 register_step_2">
-                                    <div class="form-group">
-                                        <label class="small mr-10 mb-2">کد تایید</label>
-                                        @error('agree_code')
-                                        <span class="validation_label_error">{{$message}}</span>
-                                        @enderror
-                                        <input type="text" class="form-control  text-center otp_code_inp" name="agree_code"
-                                               id="register_agree_code">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row register_step_1" dir="ltr">
-                                <div class="col-12">
-                                    <button type="button" onclick="sendRegisterConfirmCode()" class="box-btn">
-                                        دریافت کد تایید
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="row register_step_2" dir="ltr">
-                                <div class="col-12">
-                                    <button onclick="doRegister()" type="submit" class="box-btn">
-                                        ثبت نام
-                                    </button>
-                                </div>
-                                <span class="already">
-                                      <a href="{{route('user.login')}}">
-                                         ورود
-                                     </a>
-                                    حساب کاربری دارید؟
-                                </span>
-                            </div>
-{{--                        </form>--}}
+                <div class="col-12 col-lg-4 col-xl-6">
+                    <div class="sign-up-img">
+                        <img class="mw-100" src="{{asset('site/assets/images/login.png')}}" alt="ورود به حساب کاربری نیزوا">
                     </div>
                 </div>
             </div>

@@ -27,7 +27,6 @@ class siteConsultantRegisterController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'mobile' => 'required|regex:/(09)[0-9]{9}/|digits:11|numeric',
-
         ]);
 
         if ($validation->fails()) {
@@ -39,16 +38,15 @@ class siteConsultantRegisterController extends Controller
             'first_name' => $input['first_name'],
             'last_name' => $input['last_name'],
             'mobile' => $input['mobile'],
-            'email' => 'test@' . Carbon::now() . '@test.com',
-            'is_active' => 0,
+            'is_active' => 1,
         ]);
 
         RoleUser::query()->create([
-            'role_id' => 3,
+            'role_id' => 2,
             'user_id' => $user_info['id'],
         ]);
 
-        alert()->success('', 'با تشکر از عضویت شما در سایت نیزوا');
+        alert()->success('', 'عضویت شما در سایت نیزوا با موفقیت انجام شد');
 
         return redirect()->route('home');
     }
