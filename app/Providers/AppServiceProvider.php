@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Cart;
+use App\Models\ContactUs;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Schema;
@@ -46,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('user_info', $user_info);
         });
 
-        View::composer(["*"], function ($view) {
+        View::composer(["site.*"], function ($view) {
 
             if (isset($_COOKIE['cart'])) {
                 $cookie = $_COOKIE['cart'];
@@ -58,7 +59,10 @@ class AppServiceProvider extends ServiceProvider
                 $cart_count = 0;
             }
 
+            $contact_us_info_provider = ContactUs::query()->first();
+
             $view->with('cart_count', $cart_count);
+            $view->with('contact_us_info_provider', $contact_us_info_provider);
         });
     }
 

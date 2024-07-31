@@ -145,15 +145,13 @@ Route::namespace('App\Http\Controllers\user')
 
 //  *************  site ***************
 Route::post('event_register', [siteEventController::class, 'event_register'])->name('event_register');
-
-
 Route::get('after_payment/{order_id}', [siteEventController::class, 'after_payment'])->name('after_payment');
 
 
 //  *************  posts ***************
 
-Route::get('posts_page', [postController::class, 'index'])->name('posts_page');
-Route::get('post_detail/{post_id}', [postController::class, 'post_detail'])->name('post_detail');
+Route::get('blog', [postController::class, 'index'])->name('posts_page');
+Route::get('blog/{post_nickname}', [postController::class, 'post_detail'])->name('post_detail');
 
 
 //  *************  test ***************

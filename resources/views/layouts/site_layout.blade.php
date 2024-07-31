@@ -9,7 +9,7 @@
     <meta name="description" content="Edvi - Education HTML Template">
     <meta name="author" content="Barat Hadian">
 
-    <link rel="icon" href="{{asset('site/assets/images/logo1.png')}}" type="image/x-icon">
+    <link rel="icon" href="{{asset('site/assets/images/favicon.png')}}" type="image/x-icon">
     <!-- VENDOR CSS -->
     <link rel="stylesheet" type="text/css" href="{{asset('site/assets/css/bootstrap.rtl.min.css')}}"/>
 
@@ -61,8 +61,8 @@
 <!-- Start Navbar Area -->
 <div class="navbar-area">
     <div class="mobile-nav">
-        <a href="#" class="logo">
-            <img src="{{asset('site/assets/images/logo1.png')}}" alt="logo"/>
+        <a href="{{route('home')}}" class="logo">
+            <img class="top_logo" src="{{asset('site/assets/images/logo.png')}}" alt="logo"/>
         </a>
     </div>
 
@@ -70,37 +70,44 @@
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light">
                 <a class="navbar-brand" href="{{route('home')}}">
-                    <img src="{{asset('site/assets/images/logo1.png')}}" alt="logo"/>
+                    <img class="top_logo" src="{{asset('site/assets/images/logo.png')}}" alt="logo"/>
                 </a>
+
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                     <ul class="navbar-nav text-right">
                         <li class="nav-item">
-                            <a href="{{route('home')}}" class="nav-link active">خانه</a>
+                            <a href="{{route('home')}}" class="nav-link">خانه</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="{{route('posts_page')}}" class="nav-link">کتاب صوتی</a>
-                        </li>
                         <li class="nav-item">
                             <a href="{{route('albums')}}" class="nav-link">آلبوم ها</a>
 
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('posts_page')}}" class="nav-link">مقالات</a>
+                        </li>
+
                         <li class="nav-item">
                             <a href="{{route('about_us')}}" class="nav-link">درباره ما</a>
                         </li>
+
                         <li class="nav-item">
                             <a href="{{route('contact_us')}}" class="nav-link">
                                 تماس با ما
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="{{route('user.login')}}" class="nav-link">ورود</a>
                         </li>
+
                         <li class="nav-item">
                             <a href="{{route('consultant_register')}}" class="nav-link">
                                 ثبت نام
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="{{route('cart')}}" class="nav-link">
                                 سبد خرید
@@ -121,15 +128,17 @@
 <div class="footer-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-6">
+            <div class="col-12 col-md-6 col-lg-4">
                 <div class="footer-left">
-                    <a href="index.html" class="logo">
-                        <img src="{{asset('site/assets/images/logo2.png')}}" alt="logo"/>
+                    <a href="{{route('home')}}" class="logo">
+                        <img class="footer_logo" src="{{asset('site/assets/images/logo.png')}}" alt="logo"/>
                     </a>
+
                     <p>
                         لورم ایپسوم به سادگی ساختار چاپ و متن را در بر می گیرد. لورم ایپسوم به مدت 40 سال استاندارد صنعت
                         بوده است.
                     </p>
+
                     <ul class="footer-social">
                         <li>
                             <a href="#"><i class="flaticon-facebook"></i></a>
@@ -146,73 +155,96 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-content fml-25">
-                    <h2>مدرسه</h2>
-                    <ul>
-                        <li>
-                            <a href="#"><i class="flaticon-left-arrow"></i> پشتیبانی</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="flaticon-left-arrow"></i> حرفه</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="flaticon-left-arrow"></i> مربیان</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="flaticon-left-arrow"></i> کارمندان</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="flaticon-left-arrow"></i> تماس با ما</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-6">
+
+            <div class="col-12 col-md-6 col-lg-2">
                 <div class="footer-content fml-15">
                     <h2>لینکهای سریع</h2>
                     <ul>
                         <li>
-                            <a href="#"><i class="flaticon-left-arrow"></i> صفحه اصلی</a>
+                            <a href="{{route('home')}}">
+                                <i class="flaticon-left-arrow"></i>
+                                صفحه اصلی
+                            </a>
                         </li>
+
                         <li>
-                            <a href="#"><i class="flaticon-left-arrow"></i> کلاس ها</a>
+                            <a href="{{route('albums')}}">
+                                <i class="flaticon-left-arrow"></i>
+                                آلبوم ها
+                            </a>
                         </li>
+
                         <li>
-                            <a href="#"><i class="flaticon-left-arrow"></i> دوره ها</a>
+                            <a href="{{route('posts_page')}}">
+                                <i class="flaticon-left-arrow"></i>
+                                مقالات
+                            </a>
                         </li>
+
                         <li>
-                            <a href="#"><i class="flaticon-left-arrow"></i> شرکت ما</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="flaticon-left-arrow"></i> سوالات متداول</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-content fml-15 fml-20">
-                    <h2>تماس بگیرید</h2>
-                    <ul>
-                        <li>
-                            <a href="#"><i class="flaticon-left-arrow"></i> تلفن: 12345678-021</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="flaticon-left-arrow"></i> فکس: 12345678-021</a>
-                        </li>
-                        <li>
-                            <a href="#">hello@edvi.com <i class="flaticon-left-arrow"></i></a>
-                        </li>
-                        <li>
-                            <a href="#">support@edvi.com <i class="flaticon-left-arrow"></i></a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="flaticon-left-arrow"></i> ایران ، استان تهران ، میدان آزادی
+                            <a href="{{route('contact_us')}}">
+                                <i class="flaticon-left-arrow"></i>
+                                تماس با ما
                             </a>
                         </li>
                     </ul>
                 </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="footer-content fml-15 fml-20">
+                    <h2>با ما در تماس باشید</h2>
+                    <ul>
+                        <li>
+                            <a href="tel:{{$contact_us_info_provider['phone1']}}">
+                                <i class="flaticon-left-arrow"></i>
+                                تلفن:
+                                {{$contact_us_info_provider['phone1']}}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="tel:{{$contact_us_info_provider['phone2']}}">
+                                <i class="flaticon-left-arrow"></i>
+                                تلفن:
+                                {{$contact_us_info_provider['phone2']}}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="flaticon-left-arrow"></i>
+                                ساعت کاری:
+                                {{$contact_us_info_provider['work_time']}}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="flaticon-left-arrow"></i>
+                                آدرس:
+                                {{$contact_us_info_provider['address']}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-2">
+                <div class="footer-content fml-15">
+                    <h2>مجوزهای ما</h2>
+                    <ul>
+                        <li>
+                            <img class="footer_logo w-100" src="{{asset('site/assets/images/enamad.png')}}">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <p class="copyright_footer">
+                    © کلیه حقوق مادی و معنوی متعلق به پژواک نیزوا می باشد
+                </p>
             </div>
         </div>
     </div>

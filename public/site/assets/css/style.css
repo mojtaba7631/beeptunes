@@ -212,26 +212,20 @@ a.scroll-top i {
 }
 
 .border-btn {
-    padding: 18px 30px;
-    font-weight: 500;
+    padding: 15px 30px;
+    font-weight: bold;
     text-align: center;
     overflow: hidden;
-    text-transform: capitalize;
-    margin-right: 20px;
-    margin-top: 20px;
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
     border-radius: 100px;
-    border: 1px solid #fff;
-    color: #fff;
     position: relative;
-    background-color: #37523e;
+    background-color: #0f403b;
+    font-size: 10pt;
 }
 
 .border-btn:hover {
-    color: #fff;
-    background: #005F55;
-    border: 1px solid #005F55;
+    color: #0f403b !important;
+    background-color: #fff !important;
+    border: 2px solid #0f403b !important;
 }
 
 .border-btn i {
@@ -4794,10 +4788,9 @@ a.scroll-top i {
 
 .footer-area {
     position: relative;
-    padding: 75px 0;
+    padding: 75px 0 8px 0;
     overflow: hidden;
-    background: url(../images/footer-area.png);
-    background-size: cover;
+    background-color: #042932;
 }
 
 .footer-area .footer-left p {
@@ -4840,7 +4833,8 @@ a.scroll-top i {
 
 .footer-area .footer-content h2 {
     color: #fff;
-    font-size: 25px;
+    font-size: 16pt;
+    margin-bottom: 26px;
 }
 
 .footer-area .footer-content ul {
@@ -4849,33 +4843,17 @@ a.scroll-top i {
 }
 
 .footer-area .footer-content ul li a {
-    font-size: 16px;
+    font-size: 11pt;
     color: #fff;
     -webkit-transition: 0.3s;
     transition: 0.3s;
-    margin-top: 11px;
     position: relative;
-}
-
-.footer-area .footer-content ul li a::before {
-    position: absolute;
-    content: "";
-    width: 0%;
-    height: 1px;
-    background: #000;
-    top: 13px;
-    left: 0;
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
+    margin: 11px 0;
 }
 
 .footer-area .footer-content ul li a i {
     font-size: 9px;
-    margin-right: 2px;
-}
-
-.footer-area .footer-content ul li a:hover:before {
-    width: 100%;
+    margin-left: 5px;
 }
 
 .copy-area {
@@ -4901,17 +4879,26 @@ a.scroll-top i {
     color: #005F55;
 }
 
+.copyright_footer {
+    color: #fff;
+    border-top: 1px solid #fff;
+    margin-top: 50px;
+    padding-top: 25px;
+    text-align: center;
+}
+
 #cart_count_span {
     position: absolute;
-    top: 0;
-    width: 25px;
-    height: 25px;
-    background: red;
+    top: 9px;
+    width: 24px;
+    height: 24px;
+    background: #b50000;
     color: #fff;
     border-radius: 50%;
     text-align: center;
-    line-height: 25px;
+    line-height: 24px;
     left: 0;
+    font-size: 9pt;
 }
 
 /*# sourceMappingURL=style.css.map */

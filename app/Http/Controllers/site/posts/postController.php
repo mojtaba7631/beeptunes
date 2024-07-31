@@ -8,19 +8,21 @@ use Illuminate\Http\Request;
 
 class postController extends Controller
 {
-    public function index()
+    public function index(): \Illuminate\Contracts\View\View
     {
         $posts = Post::query()
-            ->paginate(4);
+            ->latest()
+            ->paginate(12);
+
         return view('site.posts.index', compact('posts'));
     }
 
-    public function post_detail($post_id)
+    public function post_detail($post_nickname): \Illuminate\Contracts\View\View
     {
         $post_info = Post::query()
-            ->where('id',$post_id)
-            ->first();
+            ->where('post_nickname', $post_nickname)
+            ->firstOrFail();
 
-        return view('site.posts.post_detail',compact('post_info'));
+        return view('site.posts.post_detail', compact('post_info'));
     }
 }

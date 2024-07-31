@@ -46,13 +46,17 @@
                                         <h2>
                                             {{$post['post_title']}}
                                         </h2>
+
                                         <p class="calender">
-                                            <i class="flaticon-calendar"></i> تاریخ: 10 دی 1398
+                                            <i class="flaticon-calendar"></i>
+                                            تاریخ: {{verta($post['updated_at'])->format('d %B Y')}}
                                         </p>
-                                        <p>
+
+                                        <p class="text-truncate mw-100">
                                             {{$post['post_meta_description']}}
                                         </p>
-                                        <a href="{{route('post_detail',['post_id' => $post['id']])}}" class="line-bnt">
+
+                                        <a href="{{route('post_detail',['post_nickname' => $post['post_nickname']])}}" class="line-bnt">
                                             ادامه خواندن
                                             <i class="flaticon-left-arrow"></i>
                                         </a>

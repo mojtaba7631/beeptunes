@@ -79,7 +79,7 @@ a.meanmenu-reveal {
 }
 
 .mean-container .mean-nav ul li li a {
-    width: 80%;
+    width: 90%;
     padding: 1em 10%;
     color: #677294;
     border-top: 1px solid #DBEEFD;
@@ -168,15 +168,15 @@ a.meanmenu-reveal {
 }
 
 .main-nav {
-    background: #000;
     position: absolute;
     top: 0;
     left: 0;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    width: 100%;
+    width: 80%;
     z-index: 999;
     height: auto;
+    right: 0;
+    margin: auto;
+    padding: 10px 45px;
 }
 
 .mean-nav .dropdown-toggle::after {
@@ -319,6 +319,15 @@ a.meanmenu-reveal {
     right: 0;
 }
 
+.top_logo {
+    max-height: 65px;
+}
+
+.footer_logo {
+    background: #fff;
+    padding: 10px;
+    border-radius: 15px;
+}
 
 /* Responsive Style */
 
@@ -327,6 +336,7 @@ a.meanmenu-reveal {
         display: block;
         position: relative;
     }
+
     .mobile-nav .logo {
         text-decoration: none;
         position: absolute;
@@ -338,17 +348,27 @@ a.meanmenu-reveal {
         text-transform: uppercase;
         font-size: 20px;
     }
+
     .mean-container .mean-bar {
         background-color: #fff;
-        padding: 0;
+        padding: 10px 0;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, .12);
     }
+
     .mean-container a.meanmenu-reveal {
         padding: 15px 15px 0 0;
     }
+
     .mobile-nav nav .navbar-nav .nav-item a i {
         display: none;
     }
+
     .main-nav {
         display: none !important;
+    }
+
+    .top_logo {
+        max-height: 57px;
+        margin-top: -4px;
     }
 }
