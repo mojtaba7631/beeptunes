@@ -4,6 +4,7 @@ namespace App\Http\Controllers\site\albums;
 
 use App\Http\Controllers\Controller;
 use App\Models\Album;
+use App\Models\TrackAlbum;
 use Illuminate\Http\Request;
 
 class siteAlbumController extends Controller
@@ -22,6 +23,10 @@ class siteAlbumController extends Controller
             ->where('id', $album_id)
             ->firstOrFail();
 
-        return view('site.albums.album_detail', compact('album_info'));
+        $tracks_album = TrackAlbum::query()
+            ->where('album_id', $album_id)
+            ->get();
+
+        return view('site.albums.album_detail', compact('album_info','tracks_album'));
     }
 }

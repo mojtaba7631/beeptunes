@@ -139,6 +139,10 @@
                         $('.the_total_price').text(response.the_total_price + ' تومان ');
                         $(tag).parents('tr').remove();
                         $("#cart_count_span").text(response.cart_count)
+
+                        if (parseInt(response.cart_count )=== 0) {
+                            location.reload()
+                        }
                     }
                 },
                 error: function (xhr, status, error) {
@@ -243,7 +247,7 @@
                                         <
                                         <td class="fw-bold"> جمع کل</td>
 
-                                        <td class="fw-bold">
+                                        <td class="fw-bold  the_total_price">
                                             {{@number_format($the_total_price)}}
                                             تومان
                                         </td>

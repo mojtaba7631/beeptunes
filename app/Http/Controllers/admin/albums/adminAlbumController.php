@@ -6,6 +6,8 @@ use App\Helper\RepairFileSrc;
 use App\Http\Controllers\Controller;
 use App\Models\Album;
 use App\Models\Category;
+use App\Models\Track;
+use App\Models\TrackAlbum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -72,28 +74,27 @@ class adminAlbumController extends Controller
 
     }
 
-    public function edit($album_id){
+    public function edit($album_id)
+    {
         $album_info = Album::query()
-            ->where('id' , $album_id)
+            ->where('id', $album_id)
             ->first();
 
         $categories = Category::query()
             ->where('for_product', 1)
             ->get();
 
-        return view('admin.albums.edit',compact('album_info','categories'));
+        return view('admin.albums.edit', compact('album_info', 'categories'));
 
     }
 
-    public function update(Request $request , $album_id)
+    public function update(Request $request, $album_id)
     {
         $input = $request->all();
 
-
         $album_info = Album::query()
-            ->where('id' , $album_id)
+            ->where('id', $album_id)
             ->first();
-
 
         if ($request->has('album_image')) {
             //get post image and delete old profile
@@ -203,6 +204,84 @@ class adminAlbumController extends Controller
         $cat_album_info->delete();
 
         alert()->success('', 'دسته مورد نظر حذف شد');
+        return back();
+    }
+
+    public function album_tracks($album_id)
+    {
+        $album_info = Album::query()
+            ->where('id', $album_id)
+            ->first();
+
+        $album_title = $album_info['album_title'];
+
+        $track_info = TrackAlbum::query()
+            ->paginate();
+
+        return view('admin.albums.tracks.index', compact('album_title', 'track_info', 'album_id'));
+    }
+
+    public function album_track_store(Request $request, $track_album_id)
+    {
+        $input = $request->all();
+
+        $validation = Validator::make($input, [
+            'track_title' => 'required|string|max:255',
+            'track_nickname' => 'required|string|max:255',
+            'track_time' => 'required|string|max:255',
+            'track_image' => 'required|mimes:png,jpg,jpeg|max:2048',
+            'track_file' => 'required|mimes:mp3|max:10240',
+        ]);
+
+        if ($validation->fails()) {
+            alert()->error($validation->errors()->first());
+            return back()->withErrors($validation->errors())->withInput();
+        }
+//        dd($input['track_file']);
+
+        $file = $request->file('track_image');
+        $file_ext = $file->getClientOriginalExtension();
+        $file_name = 'track_album_' . time() . '.' . $file_ext;
+        $track_album_image = $file->move('site\assets\track_album_images', $file_name);
+
+
+        $file1 = $request->file('track_file');
+
+        $file_ext1 = $file1->getClientOriginalExtension();
+
+
+        $file_name1 = 'track_file_' . time() . '.' . $file_ext1;
+        $track_album_file = $file1->move('site\assets\track_album_file', $file_name1);
+
+        TrackAlbum::query()->create([
+            'album_id' => $track_album_id,
+            'track_title' => $input['track_title'],
+            'track_nickname' => str_replace(' ', '-', $input['track_nickname']),
+            'track_time' => $input['track_time'],
+            'track_image' => RepairFileSrc::rapair_file_src($track_album_image),
+            'track_file' => RepairFileSrc::rapair_file_src($track_album_file),
+        ]);
+
+        alert()->success('', 'ترک مورد نظر با موفقیت افزوده شد');
+        return back();
+    }
+
+    public function track_destroy($track_id)
+    {
+        $track_info = TrackAlbum::query()->findOrFail($track_id);
+
+        $old = $track_info->track_image;
+        if (file_exists($old) and !is_dir($old)) {
+            unlink($old);
+        }
+
+        $old2 = $track_info->track_file;
+        if (file_exists($old2) and !is_dir($old2)) {
+            unlink($old2);
+        }
+
+        $track_info->delete();
+
         return back();
     }
 }

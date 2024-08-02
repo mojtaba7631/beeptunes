@@ -110,6 +110,11 @@
                                                 <i class="icon-pencil"></i>
                                             </button>
                                         </a>
+                                        <a href="{{route('admin.album_tracks', ['album_id' => $album['id']])}}">
+                                            <button class="btn btn-warning" data-toggle="tooltip" title="ترک های آلبوم">
+                                                <i class="icon-music-tone"></i>
+                                            </button>
+                                        </a>
 
                                         <button onclick="removeAlbum({{$album['id']}})" class="btn btn-danger" data-toggle="tooltip" title="حذف آلبوم">
                                             <i class="icon-trash"></i>

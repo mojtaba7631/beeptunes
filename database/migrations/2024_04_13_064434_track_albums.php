@@ -13,7 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('track_albums', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('album_id');
+            $table->string('track_title', 255);
+            $table->string('track_nickname', 255);
+            $table->string('track_image', 255);
+            $table->string('track_time', 255);
+            $table->string('track_file', 255);
+            $table->timestamps();
+        });
     }
 
     /**

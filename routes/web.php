@@ -120,8 +120,9 @@ Route::namespace('App\Http\Controllers\admin')
         Route::post('cat_album_store_panel', [adminAlbumController::class, 'cat_album_store'])->name('cat_album_store_panel');
         Route::post('cat_album_update_panel/{cat_album_id}', [adminAlbumController::class, 'cat_album_update'])->name('cat_album_update_panel');
         Route::post('cat_album_delete_panel/{cat_album_id}', [adminAlbumController::class, 'delete'])->name('cat_album_delete_panel');
-
-
+        Route::get('album_tracks/{album_id}', [adminAlbumController::class, 'album_tracks'])->name('album_tracks');
+        Route::post('album_track_store/{album_id}', [adminAlbumController::class, 'album_track_store'])->name('album_track_store');
+        Route::post('track_destroy_panel/{track_id}', [adminAlbumController::class, 'track_destroy'])->name('track_destroy_panel');
     });
 
 
@@ -131,13 +132,13 @@ Route::namespace('App\Http\Controllers\user')
     ->middleware('userAuth')
     ->name('user.')
     ->prefix('/user-panel')
-    ->group(function (){
-    //dashboard
+    ->group(function () {
+        //dashboard
         Route::get('dashboard', [adminDashboardController::class, 'index'])->name('dashboard');
 
         //address
-        Route::get('address',[userAddressController::class,'index'])->name('address');
-        Route::post('address_store',[userAddressController::class,'store'])->name('address_store');
+        Route::get('address', [userAddressController::class, 'index'])->name('address');
+        Route::post('address_store', [userAddressController::class, 'store'])->name('address_store');
     });
 
 // *************************  user **********************************
@@ -221,8 +222,8 @@ Route::get('doUserLogin', [siteAuthController::class, 'doUserLogin'])->name('doU
 //  *************  site ***************
 
 //register for user
-Route::post('doRegisterConfirmCode',[siteAuthController::class,'doRegister'])->name('site.doRegisterConfirmCode');
-Route::post('doRegister',[siteAuthController::class,'doRegister'])->name('site.doRegister');
+Route::post('doRegisterConfirmCode', [siteAuthController::class, 'doRegister'])->name('site.doRegisterConfirmCode');
+Route::post('doRegister', [siteAuthController::class, 'doRegister'])->name('site.doRegister');
 
 //login & logout for admin
 Route::middleware('loginMiddleware')

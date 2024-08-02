@@ -97,6 +97,10 @@
             box-shadow: 0 0 5px rgba(0, 0, 0, .2);
             margin: 15px 0;
         }
+
+        .my_title {
+            line-height: 50px;
+        }
     </style>
 @endsection
 
@@ -214,7 +218,7 @@
     <section class="single-class-area">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-lg-9 col-xl-8 text-center">
+                <div class="col-12 col-md-8 text-center">
                     <div class="album_box_content">
                         <div class="row justify-content-center">
                             <div class="col-12 col-lg-8 col-xl-6">
@@ -271,27 +275,48 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-3 col-xl-4 text-center">
+                <div class="col-12 col-md-4 text-center">
                     <div class="album_box_sidebar">
                         <h3 class="sidebar_title">ترک های آلبوم</h3>
 
                         <ul class="class-list m-0 p-0">
-                            <li class="w-100 each_track">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <img src="{{asset($album_info['album_image'])}}" class="d-flex track_img">
+                            @foreach($tracks_album as $track)
+                                <li class="w-100 each_track">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="row">
+                                            <div class="col-12 col-md-3 text-center">
+                                                <img src="{{asset($track['track_image'])}}" class="d-flex track_img m-auto">
+                                            </div>
+                                            <div class="col-12 col-md-6 text-center">
+                                                <span class="track_title mb-0 my_title text-center m-auto">
+                                                    {{$track['track_title']}}
+                                                </span>
+                                            </div>
+                                            <div class="col-12 col-md-3 text-center">
+                                                <span class="time_track my_title text-center">
+                                                    {{$track['track_time']}}
+                                                </span>
+                                            </div>
+                                            <div class="col-12 mt-3 text-center">
+                                                <span class="name_track text-center">
+                                                {{$album_info['album_title']}}
+                                                </span>
+                                            </div>
 
-                                    <h6 class="d-flex track_title mb-0">
-                                        ترک اول
-                                    </h6>
+                                        </div>
 
-                                    <div class="d-flex">
-                                        <span class="name_track"> یمین غفاری </span>
-                                        <span class="time_track"> 3:46 </span>
+
+                                        <h6 class="d-flex">
+
+
+                                        </h6>
                                     </div>
-                                </div>
 
-                                <audio controls class="audio_css mt-2"></audio>
-                            </li>
+                                    <audio controls class="audio_css mt-2">
+                                        <source src="{{asset($track['track_file'])}}">
+                                    </audio>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

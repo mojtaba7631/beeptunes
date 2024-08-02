@@ -11,4 +11,8 @@ class Album extends Model
 
     protected $table = 'albums';
     protected $guarded = [];
+
+    function tracks() {
+        return $this->belongsToMany(TrackAlbum::class);
+    }
 }
